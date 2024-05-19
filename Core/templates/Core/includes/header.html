@@ -1,0 +1,75 @@
+{% load static %}
+<header>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid justify-content-center">
+            {% if not request.user.is_authenticated %}
+                <img src="{% static 'Core/img/shop.svg' %}" alt="Bootstrap"
+                    width="30" height="24">
+            {% endif %}
+            <a class="navbar-brand">Shop</a>
+            <button class="navbar-toggler" type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse flex-grow-0"
+                id="navbarSupportedContent">
+                <ul
+                    class="navbar-nav me-auto mb-2 mb-lg-0 gap-3 align-items-center">
+                    {% if request.user.is_authenticated %}
+                    <li class="nav-item ">
+                        <a class="my-link" aria-current="page"
+                            href="{% url 'orders' %}">Orders</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="my-link" href="#">Create order</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="my-link"
+                            href="{% url 'catalog' %}">Catalog</a>
+                    </li>
+                    {% endif %}
+                    {% if request.user.is_authenticated %}
+                    <li class="nav-item">
+                        <a href="{% url 'signout' %}">
+                            <img src="{% static 'Core/img/exit.png' %}"
+                                width="25" style="filter: invert();">
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="{% url 'profile' %}">
+                            {% if request.user.avatar %}
+                            <img src="{{ request.user.avatar.url }}"
+                                width="40" class="rounded-5">
+
+                            {% else %}
+                            <img src="{% static 'Core/img/profile.png' %}"
+                                width="25" style="filter: invert();">
+                            {% endif %}
+                        </a>
+                    </li>
+                    {% else %}
+                    <li class="nav-item">
+                        <a class="my-link bg-dark rounded-4 px-2 py-2"
+                            href="{% url 'signup' %}">Sigup</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="my-link bg-dark rounded-4 px-2 py-2"
+                            href="{% url 'signin' %}">Signin</a>
+                    </li>
+                    {% endif %}
+
+                    <li>
+                        <button class="btn">
+                            <img class="btn_change_theme" width="25"
+                                src="{% static 'Core/img/sun.svg' %}" alt>
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
